@@ -1,0 +1,8 @@
+.idea/
+logs/
+*/target/
+*/*.iml
+out/
+*.iml
+target/
+.polaris/*
