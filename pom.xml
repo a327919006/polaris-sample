@@ -11,6 +11,8 @@
     <modules>
         <module>polaris-common</module>
         <module>order-service</module>
+        <module>user-service</module>
+        <module>user-api</module>
     </modules>
 
     <properties>
