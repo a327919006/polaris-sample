@@ -1,10 +1,14 @@
 package com.cn.polaris.sample.order.controller;
 
 import com.cn.polaris.sample.common.model.RspBase;
+import com.cn.polaris.sample.user.model.User;
+import com.cn.polaris.sample.user.service.UserClient;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,11 +28,22 @@ public class OrderController {
     @Value("${user.age}")
     private String age;
 
+    @Autowired
+    private UserClient userClient;
+
     @GetMapping("/config/age")
     public RspBase<String> getAge() {
         log.info("【配置】开始获取age");
         log.info("【配置】获取成功age");
         return RspBase.data(age);
+    }
+
+    @GetMapping("/feign/{id}")
+    public RspBase<User> feignGet(@PathVariable String id) {
+        log.info("【订单】开始获取");
+        RspBase<User> rspBase = userClient.get(id);
+        log.info("【订单】获取成功");
+        return rspBase;
     }
 
 }
