@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    tencent:
+      metadata:
+        content:
+          env: dev1
+          region: huadong
+          zone: shanghai
+          campus: 1
