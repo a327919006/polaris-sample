@@ -5,5 +5,16 @@ spring:
     name: ${project.artifactId}
   cloud:
     polaris:
+      # 北极星后端地址
       address: grpc://183.47.111.80:8091
+      # 命名空间（默认default）
       namespace: cndev
+      # 注册的ip地址（默认本机ip）
+      local-ip-address: 127.0.0.1
+      # 配置中心
+      config:
+        # 自动刷新配置（默认true）
+        auto-refresh: true
+        groups:
+          - name: common
+            files: [public.yml]

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * <p>Title:</p>
  * <p>Description:</p>
@@ -26,16 +28,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     @Value("${user.age}")
-    private String age;
+    private Integer age;
+    @Value("${user.name}")
+    private String name;
 
     @Autowired
     private UserClient userClient;
 
-    @GetMapping("/config/age")
-    public RspBase<String> getAge() {
-        log.info("【配置】开始获取age");
-        log.info("【配置】获取成功age");
-        return RspBase.data(age);
+    @GetMapping("/config")
+    public RspBase<User> getConfig() {
+        log.info("【配置】开始获取");
+        User user = new User();
+        user.setAge(age);
+        user.setName(name);
+        log.info("【配置】获取成功");
+        return RspBase.data(user);
     }
 
     @GetMapping("/feign/{id}")
@@ -46,4 +53,10 @@ public class OrderController {
         return rspBase;
     }
 
+    @GetMapping("healthCheck")
+    public String healthCheck(HttpServletResponse response) {
+        // 模拟健康检查失败，返回BAD_REQUEST，则实例在北极星为异常状态
+        // response.setStatus(HttpStatus.BAD_REQUEST.value());
+        return "ok";
+    }
 }

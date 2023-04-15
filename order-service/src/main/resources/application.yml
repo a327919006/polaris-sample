@@ -1,9 +1,37 @@
 spring:
   cloud:
     tencent:
+      # 元数据信息
       metadata:
         content:
           env: dev1
           region: huadong
           zone: shanghai
           campus: 1
+    polaris:
+      discovery:
+        # 服务名
+        service: ${spring.application.name}
+        # 心跳间隔（默认5s）
+        heartbeat-interval: 5
+        # 健康检查url，当前服务向北极星服务端发送心跳前回调健康检查url判断当前服务是否健康，只有健康才会发送心跳
+        health-check-url: /order/healthCheck
+        # 服务列表刷新间隔（默认60000毫秒）
+        service-list-refresh-interval: 60000
+        # 连接北极星所需的token（当北极星开启auth时需要传）
+        token: xxx
+        # 当前服务版本
+        version: 1.0.0
+        # 当前服务权重(默认100)，用于负载均衡
+        weight: 100
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - polaris-discovery
+        - polaris-config
+        - polaris-metadata
+        - polaris-ratelimit
+        - polaris-router
