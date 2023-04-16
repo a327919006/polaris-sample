@@ -13,8 +13,25 @@ spring:
       local-ip-address: 127.0.0.1
       # 配置中心
       config:
+        # 开启配置中心（默认true）
+        enabled: true
         # 自动刷新配置（默认true）
         auto-refresh: true
+        # 配置来源，polaris或local（默认polaris）
+        data-source: polaris
+        # 配置文件本地缓存路径(默认./polaris/backup/config)
+        local-file-root-path: ./polaris/backup/config
+        # 启动时连接北极星失败则终止启动（默认true）
+        shutdown-if-connect-to-config-server-failed: true
+        # 动态刷新实现方式refresh_context为springCloud实现方式，reflect为SCT实现方式（默认reflect）
+        refresh-type: reflect
+        # 是否连接北极星配置中心，无网络情况可关闭（默认true）
+        connect-remote-server: true
+        # 自定义配置文件，如通用配置文件
         groups:
+          # 文件组
           - name: common
+            # 文件列表
             files: [public.yml]
+
+
