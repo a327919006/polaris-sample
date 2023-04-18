@@ -27,11 +27,13 @@ spring:
         refresh-type: reflect
         # 是否连接北极星配置中心，无网络情况可关闭（默认true）
         connect-remote-server: true
-        # 自定义配置文件，如通用配置文件
+        # 自定义配置文件，如通用配置文件，相同key时配置优先级：应用名组内配置》groups内配置》resources配置
         groups:
-          # 文件组
-          - name: common
-            # 文件列表
-            files: [public.yml]
+        # 文件组
+        - name: common
+          # 文件列表（相同key是配置优先级，从左往右）
+          files: [public.yml]
 
 
+user:
+  age: 33
