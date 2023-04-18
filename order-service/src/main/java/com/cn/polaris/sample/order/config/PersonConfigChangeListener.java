@@ -17,7 +17,7 @@ import java.util.Set;
 public final class PersonConfigChangeListener {
 
     /**
-     * 按需监听
+     * 按需监听，监听指定key或按前缀监听
      */
     @PolarisConfigKVFileChangeListener(interestedKeys = {"user.age", "user.name"})
     // @PolarisConfigKVFileChangeListener(interestedKeyPrefixes = "user")
