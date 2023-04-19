@@ -10,12 +10,14 @@ spring:
           campus: 1
     polaris:
       discovery:
-        # 服务名
+        enabled: true
+        register: true
+        # 服务名(默认${spring.application.name})
         service: ${spring.application.name}
         # 心跳间隔（默认5s）
         heartbeat-interval: 5
-        # 健康检查url，当前服务向北极星服务端发送心跳前回调健康检查url判断当前服务是否健康，只有健康才会发送心跳
-        health-check-url: /order/healthCheck
+        # 健康检查url(注意服务限流，可能导致健康检查失败)，当前服务向北极星服务端发送心跳前回调健康检查url判断当前服务是否健康，只有健康才会发送心跳
+        # health-check-url: /order/healthCheck
         # 服务列表刷新间隔（默认60000毫秒）
         service-list-refresh-interval: 60000
         # 连接北极星所需的token（当北极星开启auth时需要传）
@@ -24,6 +26,24 @@ spring:
         version: 1.0.0
         # 当前服务权重(默认100)，用于负载均衡
         weight: 100
+      loadbalancer:
+        enabled: true
+        # 负载均衡策略（默认random随机），roundRobin轮询、polarisWeightedRandom北极星权重随机、polarisRingHash北极星一致性哈希等等
+        strategy: random
+      ratelimit:
+        enabled: true
+        # 自定义拒绝请求响应的文本内容(默认The request is deny by rate limit because the throttling threshold is reached)
+        rejectRequestTips: '{"code": 429, "msg": "too many request"}'
+        # 自定义拒绝请求响应的Http状态码（默认429）
+        reject-http-code: 429
+        # 匀速排队限流最大排队时间(默认1000)，控制台配置限流规则时也可以指定此项，以控制台为准
+        max-queuing-time: 1000
+      circuitbreaker:
+        enabled: true
+
+feign:
+  circuitbreaker:
+    enabled: true
 
 management:
   endpoints:
@@ -35,3 +55,6 @@ management:
         - polaris-metadata
         - polaris-ratelimit
         - polaris-router
+
+user:
+  age: 21
