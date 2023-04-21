@@ -1,12 +1,14 @@
 package com.cn.polaris.sample.user.controller;
 
 import cn.hutool.core.util.IdUtil;
+import com.cn.polaris.sample.common.constant.Constants;
 import com.cn.polaris.sample.common.model.RspBase;
 import com.cn.polaris.sample.user.model.User;
-import com.cn.polaris.sample.user.service.UserClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,13 +25,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 @Slf4j
-public class UserController implements UserClient {
+public class UserController {
 
 
     @Value("${user.age}")
     private String age;
 
-    @Override
     @GetMapping("/{id}")
     public RspBase<User> get(@PathVariable("id") String id) {
         log.info("【用户】开始获取" + id);
@@ -41,7 +42,6 @@ public class UserController implements UserClient {
         return RspBase.data(user);
     }
 
-    @Override
     @PostMapping("/get")
     public RspBase<User> getByUser(@RequestHeader(value = "env", required = false) String env, User param) {
         log.info("【用户】开始获取" + param.getId());
@@ -51,6 +51,14 @@ public class UserController implements UserClient {
         user.setAge(11);
         log.info("【用户】获取成功" + user);
         return RspBase.data(user);
+    }
+
+    @GetMapping("/test/error")
+    public ResponseEntity testError(@RequestParam("id") String id) {
+        if (id.length() > 5) {
+            return new ResponseEntity<>(RspBase.fail(Constants.MSG_FALLBACK), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(RspBase.success(), HttpStatus.OK);
     }
 
     @GetMapping("")

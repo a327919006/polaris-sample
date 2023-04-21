@@ -53,6 +53,14 @@ public class OrderController {
         return rspBase;
     }
 
+    @GetMapping("/test/error")
+    public RspBase<User> testError(String id) {
+        log.info("【订单】开始获取");
+        RspBase<User> rspBase = userClient.testError(id);
+        log.info("【订单】获取成功");
+        return rspBase;
+    }
+
     @GetMapping("healthCheck")
     public String healthCheck(HttpServletResponse response) {
         // 模拟健康检查失败，返回BAD_REQUEST，则实例在北极星为异常状态

@@ -22,4 +22,9 @@ public class UserClientFallback implements UserClient {
         return RspBase.fail(Constants.MSG_FALLBACK);
     }
 
+    @Override
+    public RspBase<User> testError(String id) {
+        return RspBase.fail("熔断");
+    }
+
 }
