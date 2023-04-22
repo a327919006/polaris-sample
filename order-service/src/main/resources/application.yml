@@ -39,6 +39,7 @@ spring:
         # 匀速排队限流最大排队时间(默认1000)，控制台配置限流规则时也可以指定此项，以控制台为准
         max-queuing-time: 1000
       circuitbreaker:
+        # 默认true
         enabled: true
 
 feign:

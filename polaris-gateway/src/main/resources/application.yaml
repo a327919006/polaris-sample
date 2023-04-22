@@ -1,0 +1,32 @@
+server:
+  port: 10093
+spring:
+  application:
+    name: polaris-gateway
+  cloud:
+    polaris:
+      address: grpc://183.47.111.80:8091
+      namespace: cndev
+      discovery:
+        service: polaris-gateway
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: order-service
+        uri: lb://order-service
+        predicates:
+        - Path=/order/**
+        filters:
+        # 配置熔断 Filter
+        - name: CircuitBreaker
+          args:
+            # statusCodes，可选参数，配置熔断的匹配返回码，缺省时会自动识别 "5**" 为错误，可以为"4**,5**"的形式，也可以为具体的返回码
+            statusCodes: 4**,5**
+            # fallbackUri，可选参数，配置熔断降级的转发路由方法，缺省时会在熔断触发后拉取 plaris server 配置的降级作为 response
+            fallbackUri: forward:/order/fallback
+      - id: user-service
+        uri: lb://user-service
+        predicates:
+        - Path=/user/**

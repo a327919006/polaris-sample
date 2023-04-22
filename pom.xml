@@ -13,6 +13,7 @@
         <module>order-service</module>
         <module>user-service</module>
         <module>user-api</module>
+        <module>polaris-gateway</module>
     </modules>
 
     <properties>

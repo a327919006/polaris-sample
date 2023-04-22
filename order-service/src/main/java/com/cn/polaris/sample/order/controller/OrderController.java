@@ -1,5 +1,6 @@
 package com.cn.polaris.sample.order.controller;
 
+import com.cn.polaris.sample.common.constant.Constants;
 import com.cn.polaris.sample.common.model.RspBase;
 import com.cn.polaris.sample.user.model.User;
 import com.cn.polaris.sample.user.service.UserClient;
@@ -7,10 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -55,10 +55,26 @@ public class OrderController {
 
     @GetMapping("/test/error")
     public RspBase<User> testError(String id) {
+        log.info("【订单】error");
         log.info("【订单】开始获取");
         RspBase<User> rspBase = userClient.testError(id);
         log.info("【订单】获取成功");
         return rspBase;
+    }
+
+    @GetMapping("/test/error2")
+    public ResponseEntity testError2(@RequestParam("id") String id) {
+        log.info("【订单】error2");
+        if (id.length() > 5) {
+            return new ResponseEntity<>(RspBase.fail(Constants.MSG_FALLBACK), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(RspBase.success(), HttpStatus.OK);
+    }
+
+    @GetMapping("/fallback")
+    public RspBase<String> fallback() {
+        log.info("【订单】fallback");
+        return RspBase.fail("fallback");
     }
 
     @GetMapping("healthCheck")
