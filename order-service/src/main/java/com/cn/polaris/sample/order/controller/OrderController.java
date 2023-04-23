@@ -71,12 +71,6 @@ public class OrderController {
         return new ResponseEntity<>(RspBase.success(), HttpStatus.OK);
     }
 
-    @GetMapping("/fallback")
-    public RspBase<String> fallback() {
-        log.info("【订单】fallback");
-        return RspBase.fail("fallback");
-    }
-
     @GetMapping("healthCheck")
     public String healthCheck(HttpServletResponse response) {
         // 模拟健康检查失败，返回BAD_REQUEST，则实例在北极星为异常状态
