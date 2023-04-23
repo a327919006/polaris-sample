@@ -24,7 +24,7 @@ spring:
           args:
             # statusCodes，可选参数，配置熔断的匹配返回码，缺省时会自动识别 "5**" 为错误，可以为"4**,5**"的形式，也可以为具体的返回码
             statusCodes: 4**,5**
-            # fallbackUri，可选参数，熔断后回调接口，获取熔断响应信息，服务级熔断
+            # fallbackUri，可选参数，熔断后回调接口获取熔断响应信息，或者使用控制台配置的降级信息（服务级熔断有效）
             fallbackUri: forward:/fallback
       - id: user-service
         uri: lb://user-service
