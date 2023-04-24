@@ -62,6 +62,11 @@
             <groupId>com.tencent.cloud</groupId>
             <artifactId>spring-cloud-starter-tencent-polaris-circuitbreaker</artifactId>
         </dependency>
+        <!--服务路由-->
+        <dependency>
+            <groupId>com.tencent.cloud</groupId>
+            <artifactId>spring-cloud-starter-tencent-polaris-router</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
