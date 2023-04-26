@@ -5,9 +5,9 @@ spring:
       metadata:
         content:
           env: dev1
-          region: huadong
-          zone: shanghai
-          campus: 1
+          region: huadong3
+          zone: shanghai3
+          campus: shanghai3
     polaris:
       discovery:
         enabled: true
@@ -41,6 +41,15 @@ spring:
       circuitbreaker:
         # 默认true
         enabled: true
+
+#consumer:
+#  serviceRouter:
+#    plugin:
+#      nearbyBasedRouter:
+#        #描述: 就近路由的最小匹配级别。region(大区)、zone(区域)、campus(园区)
+#        matchLevel: campus
+#        #描述: 最大匹配级别
+#        maxMatchLevel: all
 
 feign:
   circuitbreaker:

@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    tencent:
+      # 元数据信息
+      metadata:
+        content:
+          env: dev1
+          region: huadong
+          zone: shanghai
+          campus: shanghai1
+
+#consumer:
+#  serviceRouter:
+#    plugin:
+#      nearbyBasedRouter:
+#        #描述: 就近路由的最小匹配级别。region(大区)、zone(区域)、campus(园区)
+#        matchLevel: campus
+#        #描述: 最大匹配级别
+#        maxMatchLevel: all
+
+
