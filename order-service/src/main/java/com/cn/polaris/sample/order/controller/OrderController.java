@@ -4,6 +4,7 @@ import com.cn.polaris.sample.common.constant.Constants;
 import com.cn.polaris.sample.common.model.RspBase;
 import com.cn.polaris.sample.user.model.User;
 import com.cn.polaris.sample.user.service.UserClient;
+import com.tencent.cloud.common.metadata.StaticMetadataManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * <p>Title:</p>
@@ -34,6 +36,8 @@ public class OrderController {
 
     @Autowired
     private UserClient userClient;
+    @Autowired
+    private StaticMetadataManager staticMetadataManager;
 
     @GetMapping("/config")
     public RspBase<User> getConfig() {
@@ -43,6 +47,14 @@ public class OrderController {
         user.setName(name);
         log.info("【配置】获取成功");
         return RspBase.data(user);
+    }
+
+    @GetMapping("/metadata")
+    public RspBase<Map<String, String>> getMetadata() {
+        log.info("【元数据】开始获取");
+        Map<String, String> envTransitiveMetadata = staticMetadataManager.getEnvTransitiveMetadata();
+        log.info("【User】获取成功");
+        return RspBase.data(envTransitiveMetadata);
     }
 
     @GetMapping("/feign/{id}")

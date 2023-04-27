@@ -1,13 +1,17 @@
+server:
+  port: 10093
 spring:
   cloud:
     tencent:
       # 元数据信息
       metadata:
         content:
-          env: dev1
-          region: huadong
-          zone: shanghai
-          campus: shanghai1
+          key1: data1
+#          region: huadong
+#          zone: shanghai
+#          campus: shanghai1
+        transitive:
+        - key1
 
 #consumer:
 #  serviceRouter:

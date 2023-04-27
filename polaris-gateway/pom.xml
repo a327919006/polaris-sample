@@ -54,5 +54,10 @@
             <groupId>com.tencent.cloud</groupId>
             <artifactId>spring-cloud-starter-tencent-polaris-router</artifactId>
         </dependency>
+        <!--元数据传递-->
+        <dependency>
+            <groupId>com.tencent.cloud</groupId>
+            <artifactId>spring-cloud-starter-tencent-metadata-transfer</artifactId>
+        </dependency>
     </dependencies>
 </project>

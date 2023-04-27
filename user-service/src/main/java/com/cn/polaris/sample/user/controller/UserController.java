@@ -4,6 +4,7 @@ import cn.hutool.core.util.IdUtil;
 import com.cn.polaris.sample.common.constant.Constants;
 import com.cn.polaris.sample.common.model.RspBase;
 import com.cn.polaris.sample.user.model.User;
+import com.tencent.cloud.common.metadata.MetadataContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>Title:</p>
@@ -32,8 +34,10 @@ public class UserController {
     private String age;
 
     @GetMapping("/{id}")
-    public RspBase<User> get(@PathVariable("id") String id) {
-        log.info("【用户】开始获取" + id);
+    public RspBase<User> get(@PathVariable("id") String id,
+                             @RequestHeader(value = "env", required = false) String env) {
+        Map<String, String> transitiveMetadata = MetadataContextHolder.get().getTransitiveMetadata();
+        log.info("【用户】开始获取id={} env={} metadata={}", id, env, transitiveMetadata);
         User user = new User();
         user.setId(id);
         user.setName("张三");
@@ -43,7 +47,8 @@ public class UserController {
     }
 
     @PostMapping("/get")
-    public RspBase<User> getByUser(@RequestHeader(value = "env", required = false) String env, User param) {
+    public RspBase<User> getByUser(@RequestHeader(value = "env", required = false) String env,
+                                   User param) {
         log.info("【用户】开始获取" + param.getId());
         User user = new User();
         user.setId(param.getId());

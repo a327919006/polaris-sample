@@ -1,5 +1,5 @@
 server:
-  port: 10093
+  port: 10090
 spring:
   application:
     name: polaris-gateway
@@ -7,10 +7,12 @@ spring:
     tencent:
       metadata:
         content:
-          env: dev1
-          region: huadong
-          zone: shanghai
-          campus: shanghai1
+          key1: data1
+#          region: huadong
+#          zone: shanghai
+#          campus: shanghai1
+        transitive:
+        - key1
     polaris:
       address: grpc://183.47.111.80:8091
       namespace: cndev
