@@ -6,12 +6,9 @@ spring:
       # 元数据信息
       metadata:
         content:
-          key1: data1
-#          region: huadong
-#          zone: shanghai
-#          campus: shanghai1
-        transitive:
-        - key1
+          region: huadong
+          zone: shanghai
+          campus: shanghai1
 
 #consumer:
 #  serviceRouter:

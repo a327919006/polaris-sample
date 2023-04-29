@@ -6,13 +6,16 @@ spring:
       # 元数据信息
       metadata:
         content:
-          key1: data1
+          transitive_key1: data
+          disposable_key1: data
 #          就近路由
 #          region: huadong
 #          zone: shanghai
 #          campus: shanghai1
         transitive:
-        - key1
+        - transitive_key1
+        disposable:
+        - disposable_key1
     polaris:
       discovery:
         enabled: true
