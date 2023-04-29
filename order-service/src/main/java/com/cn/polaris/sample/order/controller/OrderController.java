@@ -4,6 +4,7 @@ import com.cn.polaris.sample.common.constant.Constants;
 import com.cn.polaris.sample.common.model.RspBase;
 import com.cn.polaris.sample.user.model.User;
 import com.cn.polaris.sample.user.service.UserClient;
+import com.tencent.cloud.common.metadata.MetadataContextHolder;
 import com.tencent.cloud.common.metadata.StaticMetadataManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,9 +53,34 @@ public class OrderController {
     @GetMapping("/metadata")
     public RspBase<Map<String, String>> getMetadata() {
         log.info("【元数据】开始获取");
-        Map<String, String> envTransitiveMetadata = staticMetadataManager.getEnvTransitiveMetadata();
-        log.info("【User】获取成功");
-        return RspBase.data(envTransitiveMetadata);
+        // 方式一：MetadataContextHolder
+        log.info("【元数据】获取可传递的元数据映射表:{}", MetadataContextHolder.get().getTransitiveMetadata());
+        log.info("【元数据】获取上游传递过来的一次性元数据:{}", MetadataContextHolder.getAllDisposableMetadata(true));
+        log.info("【元数据】获取本地配置的一次性元数据:{}", MetadataContextHolder.get().getDisposableMetadata());
+        log.info("【元数据】TransHeaders:{}", MetadataContextHolder.get().getTransHeaders());
+        log.info("【元数据】CustomMetadata:{}", MetadataContextHolder.get().getCustomMetadata());
+        log.info("【元数据】LoadbalancerMetadata:{}", MetadataContextHolder.get().getLoadbalancerMetadata());
+
+        // 方式二：注入StaticMetadataManager
+        log.info("【元数据】获取region:{}", staticMetadataManager.getRegion());
+        log.info("【元数据】获取zone:{}", staticMetadataManager.getZone());
+        log.info("【元数据】获取campus:{}", staticMetadataManager.getCampus());
+        log.info("【元数据】获取所有地理信息元数据映射表:{}", staticMetadataManager.getLocationMetadata());
+        log.info("【元数据】获取所有环境变量读取到的元数据映射表:{}", staticMetadataManager.getAllEnvMetadata());
+        log.info("【元数据】获取环境变量中可传递的元数据映射表:{}", staticMetadataManager.getEnvTransitiveMetadata());
+        log.info("【元数据】获取环境变量中可传递的一次性（一跳）元数据映射表:{}", staticMetadataManager.getEnvDisposableMetadata());
+        log.info("【元数据】获取所有配置文件读取到的元数据映射表:{}", staticMetadataManager.getAllConfigMetadata());
+        log.info("【元数据】获取配置文件中可传递的元数据映射表:{}", staticMetadataManager.getConfigTransitiveMetadata());
+        log.info("【元数据】获取配置文件中可传递的一次性（一跳）元数据映射表:{}", staticMetadataManager.getConfigDisposableMetadata());
+        log.info("【元数据】获取InstanceMetadataProvider实现类读取到的元数据映射表:{}", staticMetadataManager.getAllCustomMetadata());
+        log.info("【元数据】获取InstanceMetadataProvider实现类中可传递的元数据映射表:{}", staticMetadataManager.getCustomSPITransitiveMetadata());
+        log.info("【元数据】获取InstanceMetadataProvider实现类中可传递的一次性（一跳）元数据映射表:{}", staticMetadataManager.getCustomSPIDisposableMetadata());
+        log.info("【元数据】获取所有读取到的元数据映射表:{}", staticMetadataManager.getMergedStaticMetadata());
+        log.info("【元数据】获取所有读取到的可传递的元数据映射表:{}", staticMetadataManager.getMergedStaticTransitiveMetadata());
+        log.info("【元数据】获取所有读取到的可传递的一次性（一跳）元数据映射表:{}", staticMetadataManager.getMergedStaticDisposableMetadata());
+
+        log.info("【元数据】获取成功");
+        return RspBase.success();
     }
 
     @GetMapping("/feign/{id}")
