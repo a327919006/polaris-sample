@@ -27,4 +27,9 @@ public class UserClientFallback implements UserClient {
         return RspBase.fail("熔断");
     }
 
+    @Override
+    public RspBase<String> metadata() {
+        return RspBase.fail("获取元数据失败");
+    }
+
 }

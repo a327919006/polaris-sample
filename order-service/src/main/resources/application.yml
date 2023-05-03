@@ -6,6 +6,7 @@ spring:
       # 元数据信息
       metadata:
         content:
+          local_key1: data
           transitive_key1: data
           disposable_key1: data
 #          就近路由

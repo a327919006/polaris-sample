@@ -21,4 +21,7 @@ public interface UserClient {
 
     @GetMapping(PREFIX + "/test/error")
     RspBase<User> testError(@RequestParam("id") String id);
+
+    @GetMapping(PREFIX + "/metadata")
+    RspBase<String> metadata();
 }

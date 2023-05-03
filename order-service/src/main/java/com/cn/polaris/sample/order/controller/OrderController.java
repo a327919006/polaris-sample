@@ -51,11 +51,12 @@ public class OrderController {
     }
 
     @GetMapping("/metadata")
-    public RspBase<Map<String, String>> getMetadata() {
+    public RspBase<String> getMetadata() {
         log.info("【元数据】开始获取");
         // 方式一：MetadataContextHolder
         log.info("【元数据】获取可传递的元数据映射表:{}", MetadataContextHolder.get().getTransitiveMetadata());
         log.info("【元数据】获取上游传递过来的一次性元数据:{}", MetadataContextHolder.getAllDisposableMetadata(true));
+        log.info("【元数据】获取上游传递过来的一次性元数据:{}", MetadataContextHolder.getAllDisposableMetadata(false));
         log.info("【元数据】获取本地配置的一次性元数据:{}", MetadataContextHolder.get().getDisposableMetadata());
         log.info("【元数据】TransHeaders:{}", MetadataContextHolder.get().getTransHeaders());
         log.info("【元数据】CustomMetadata:{}", MetadataContextHolder.get().getCustomMetadata());
@@ -79,6 +80,7 @@ public class OrderController {
         log.info("【元数据】获取所有读取到的可传递的元数据映射表:{}", staticMetadataManager.getMergedStaticTransitiveMetadata());
         log.info("【元数据】获取所有读取到的可传递的一次性（一跳）元数据映射表:{}", staticMetadataManager.getMergedStaticDisposableMetadata());
 
+        userClient.metadata();
         log.info("【元数据】获取成功");
         return RspBase.success();
     }
