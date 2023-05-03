@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * 自定义元数据
+ *
  * @author Chen Nan
  */
 @Component

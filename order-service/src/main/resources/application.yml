@@ -12,8 +12,10 @@ spring:
 #          region: huadong
 #          zone: shanghai
 #          campus: shanghai1
+        # 可传递的元数据key
         transitive:
         - transitive_key1
+        # 可传递一跳的元数据key
         disposable:
         - disposable_key1
     polaris:
