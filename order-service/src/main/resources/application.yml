@@ -9,6 +9,9 @@ spring:
           local_key1: data
           transitive_key1: data
           disposable_key1: data
+          version: 1.0.0
+          # 元数据路由key
+          system-metadata-router-keys: version
 #          就近路由
 #          region: huadong
 #          zone: shanghai

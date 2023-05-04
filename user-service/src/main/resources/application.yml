@@ -9,6 +9,7 @@ spring:
           region: huadong
           zone: shanghai
           campus: shanghai1
+          version: 1.0.0
 
 #consumer:
 #  serviceRouter:
