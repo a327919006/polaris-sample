@@ -93,6 +93,14 @@ public class OrderController {
         return rspBase;
     }
 
+    @GetMapping("/get/{id}")
+    public RspBase<User> getUser(@PathVariable String id) {
+        log.info("【订单】开始获取用户");
+        RspBase<User> rspBase = userClient.getByUser(id);
+        log.info("【订单】获取用户成功");
+        return rspBase;
+    }
+
     @GetMapping("/test/error")
     public RspBase<User> testError(String id) {
         log.info("【订单】error");

@@ -50,11 +50,10 @@ public class UserController {
     }
 
     @PostMapping("/get")
-    public RspBase<User> getByUser(@RequestHeader(value = "env", required = false) String env,
-                                   User param) {
-        log.info("【用户】开始获取" + param.getId());
+    public RspBase<User> getByUser(@RequestParam("id") String id) {
+        log.info("【用户】开始获取" + id);
         User user = new User();
-        user.setId(param.getId());
+        user.setId(id);
         user.setName("张三");
         user.setAge(11);
         log.info("【用户】获取成功" + user);
