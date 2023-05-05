@@ -4,7 +4,7 @@ spring:
   cloud:
     polaris:
       # 北极星后端地址
-      address: grpc://183.47.111.80:8091
+      address: grpc://14.22.2.171:8091
       # 命名空间（默认default）
       namespace: cndev
       # 注册的ip地址（默认本机ip）

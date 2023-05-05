@@ -16,8 +16,11 @@ public interface UserClient {
     @GetMapping(PREFIX + "/{id}")
     RspBase<User> get(@PathVariable("id") String id);
 
-    @PostMapping(PREFIX + "/get")
-    RspBase<User> getByUser(@RequestParam("id") String id);
+    @PostMapping(PREFIX + "/getById")
+    RspBase<User> getById(@RequestParam("id") String id);
+
+    @PostMapping(PREFIX + "/getByUser")
+    RspBase<User> getByUser(User user);
 
     @GetMapping(PREFIX + "/test/error")
     RspBase<User> testError(@RequestParam("id") String id);

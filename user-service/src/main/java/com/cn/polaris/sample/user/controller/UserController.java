@@ -49,11 +49,20 @@ public class UserController {
         return RspBase.data(user);
     }
 
-    @PostMapping("/get")
-    public RspBase<User> getByUser(@RequestParam("id") String id) {
+    @PostMapping("/getById")
+    public RspBase<User> getById(@RequestParam("id") String id) {
         log.info("【用户】开始获取" + id);
         User user = new User();
         user.setId(id);
+        user.setName("张三");
+        user.setAge(11);
+        log.info("【用户】获取成功" + user);
+        return RspBase.data(user);
+    }
+
+    @PostMapping("/getByUser")
+    public RspBase<User> getByUser(User user) {
+        log.info("【用户】开始获取" + user.getId());
         user.setName("张三");
         user.setAge(11);
         log.info("【用户】获取成功" + user);

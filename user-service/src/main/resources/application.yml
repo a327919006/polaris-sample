@@ -21,3 +21,5 @@ spring:
 #        maxMatchLevel: all
 
 
+user:
+  age: 22
