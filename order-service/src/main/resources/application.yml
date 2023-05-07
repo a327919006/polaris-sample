@@ -19,9 +19,17 @@ spring:
         # 可传递的元数据key
         transitive:
         - transitive_key1
+        - plugin_key1
         # 可传递一跳的元数据key
         disposable:
         - disposable_key1
+      # RCP增强
+      rpc-enhancement:
+        # 开启RCP增强，默认true
+        enabled: true
+        reporter:
+          # 上报调用结果，默认true
+          enabled: false
     polaris:
       discovery:
         enabled: true
@@ -55,6 +63,16 @@ spring:
       circuitbreaker:
         # 默认true
         enabled: true
+      # 监控数据采集
+      stat:
+        # 开关，默认true
+        enabled: true
+        # 自定义metrics的host
+        host: localhost
+        # 自定义metrics的端口，默认28080
+#        port: 28080
+        # 指标请求路径，默认/metrics
+        path: /metrics
 
 #consumer:
 #  serviceRouter:

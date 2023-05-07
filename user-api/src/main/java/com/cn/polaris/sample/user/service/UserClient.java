@@ -20,7 +20,7 @@ public interface UserClient {
     RspBase<User> getById(@RequestParam("id") String id);
 
     @PostMapping(PREFIX + "/getByUser")
-    RspBase<User> getByUser(User user);
+    RspBase<User> getByUser(@RequestBody User user);
 
     @GetMapping(PREFIX + "/test/error")
     RspBase<User> testError(@RequestParam("id") String id);

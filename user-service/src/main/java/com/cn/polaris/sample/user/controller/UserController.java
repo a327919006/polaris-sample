@@ -7,6 +7,7 @@ import com.cn.polaris.sample.user.model.User;
 import com.tencent.cloud.common.metadata.MetadataContextHolder;
 import com.tencent.cloud.common.metadata.StaticMetadataManager;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -61,8 +63,13 @@ public class UserController {
     }
 
     @PostMapping("/getByUser")
-    public RspBase<User> getByUser(User user) {
+    public RspBase<User> getByUser(@RequestBody User user, HttpServletRequest request) {
         log.info("【用户】开始获取" + user.getId());
+        String id = user.getId();
+        if (StringUtils.isEmpty(id) || StringUtils.equals("-1", id)) {
+            throw new RuntimeException("参数错误");
+        }
+        user.setId(user.getId());
         user.setName("张三");
         user.setAge(11);
         log.info("【用户】获取成功" + user);

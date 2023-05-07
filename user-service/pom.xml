@@ -68,5 +68,10 @@
             <groupId>com.tencent.cloud</groupId>
             <artifactId>spring-cloud-starter-tencent-metadata-transfer</artifactId>
         </dependency>
+        <!--RPC增强-->
+        <dependency>
+            <groupId>com.tencent.cloud</groupId>
+            <artifactId>spring-cloud-tencent-rpc-enhancement</artifactId>
+        </dependency>
     </dependencies>
 </project>
